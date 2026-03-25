@@ -142,7 +142,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map(t => (
             <div key={t.name} className="card p-6">
-              <div className="text-2xl text-gold mb-3 leading-none font-serif">"</div>
+              <div className="text-2xl text-gold mb-3 leading-none font-serif">&quot;</div>
               <p className="text-sm text-navy/70 leading-relaxed mb-4 italic">{t.quote}</p>
               <div className="text-sm font-medium text-navy">{t.name}</div>
               <div className="text-xs text-navy/40">{t.role}</div>

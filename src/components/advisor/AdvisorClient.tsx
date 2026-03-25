@@ -110,7 +110,7 @@ export default function AdvisorClient({ profile, transactions, initialHistory }:
                 <span className="font-serif italic text-cream text-xl">✦</span>
               </div>
               <div className="font-serif text-lg text-navy mb-1">What would you like to know?</div>
-              <p className="text-sm text-navy/40">I'll calculate the exact dollar impact on your {fmt(Math.round(s.federalTax))} tax bill</p>
+              <p className="text-sm text-navy/40">I&apos;ll calculate the exact dollar impact on your {fmt(Math.round(s.federalTax))} tax bill</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {QUICK_ASKS.map(q => (
