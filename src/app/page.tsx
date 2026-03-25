@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 
 const features = [
   {
@@ -39,7 +41,11 @@ const testimonials = [
   { quote: 'I log every expense now because I can instantly see the tax savings. Changed how I think about money.', name: 'Priya M.', role: 'Small business owner' },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) redirect('/dashboard')
+
   return (
     <div className="bg-cream min-h-screen">
 
