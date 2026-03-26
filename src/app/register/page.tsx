@@ -29,7 +29,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream flex">
+    <div className="min-h-dvh bg-cream flex">
       {/* Left panel */}
       <div className="hidden md:flex w-96 bg-navy flex-col p-10 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
@@ -61,7 +61,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-sm animate-fade-up">
           <div className="md:hidden mb-8">
             <Link href="/" className="flex items-center gap-2">

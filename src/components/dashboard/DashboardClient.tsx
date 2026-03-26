@@ -159,34 +159,36 @@ export default function DashboardClient({ profile, transactions }: Props) {
             <Link href="/tracker" className="btn btn-navy btn-sm">Add your first transaction</Link>
           </div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Date</th><th>Description</th><th>Category</th>
-                <th className="text-right">Amount</th><th>Tax status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recent.map(tx => {
-                const isDeductible = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
-                return (
-                  <tr key={tx.id}>
-                    <td className="text-navy/40 whitespace-nowrap text-xs">{tx.date || '—'}</td>
-                    <td className="font-medium">{tx.description}</td>
-                    <td className="text-navy/50 text-xs">{tx.category}</td>
-                    <td className={`text-right font-serif font-medium ${tx.type==='income'?'text-emerald':'text-ruby'}`}>
-                      {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
-                    </td>
-                    <td>
-                      {isDeductible
-                        ? <span className="badge badge-emerald">Deductible</span>
-                        : <span className="badge badge-faint">{tx.type === 'income' ? 'Income' : 'Expense'}</span>}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="data-table min-w-[720px]">
+              <thead>
+                <tr>
+                  <th>Date</th><th>Description</th><th>Category</th>
+                  <th className="text-right">Amount</th><th>Tax status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recent.map(tx => {
+                  const isDeductible = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
+                  return (
+                    <tr key={tx.id}>
+                      <td className="text-navy/40 whitespace-nowrap text-xs">{tx.date || '—'}</td>
+                      <td className="font-medium">{tx.description}</td>
+                      <td className="text-navy/50 text-xs">{tx.category}</td>
+                      <td className={`text-right font-serif font-medium ${tx.type==='income'?'text-emerald':'text-ruby'}`}>
+                        {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
+                      </td>
+                      <td>
+                        {isDeductible
+                          ? <span className="badge badge-emerald">Deductible</span>
+                          : <span className="badge badge-faint">{tx.type === 'income' ? 'Income' : 'Expense'}</span>}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

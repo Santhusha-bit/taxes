@@ -235,38 +235,40 @@ export default function TrackerClient({ profile, transactions: initial }: Props)
             <div className="text-sm text-navy/40">{transactions.length === 0 ? 'No transactions yet — add one above' : 'No transactions match your filter'}</div>
           </div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Date</th><th>Description</th><th>Category</th>
-                <th>Type</th><th className="text-right">Amount</th><th>Tax impact</th><th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {visible.map(tx => {
-                const isDed = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
-                return (
-                  <tr key={tx.id} className={deleting === tx.id ? 'opacity-40' : ''}>
-                    <td className="text-navy/40 text-xs whitespace-nowrap">{tx.date || '—'}</td>
-                    <td className="font-medium">{tx.description}</td>
-                    <td className="text-navy/50 text-xs">{tx.category}</td>
-                    <td><span className={`badge badge-${tx.type === 'income' ? 'emerald' : 'faint'}`}>{tx.type === 'income' ? 'Income' : 'Expense'}</span></td>
-                    <td className={`text-right font-serif font-medium ${tx.type === 'income' ? 'text-emerald' : 'text-ruby'}`}>
-                      {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
-                    </td>
-                    <td>
-                      {isDed
-                        ? <span className="badge badge-emerald text-[10px]">Saves {fmt(tx.amount * (s.marginalRate / 100))}</span>
-                        : <span className="text-xs text-navy/25">—</span>}
-                    </td>
-                    <td>
-                      <button className="btn btn-danger" onClick={() => deleteTransaction(tx.id)} disabled={deleting === tx.id}>×</button>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="data-table min-w-[920px]">
+              <thead>
+                <tr>
+                  <th>Date</th><th>Description</th><th>Category</th>
+                  <th>Type</th><th className="text-right">Amount</th><th>Tax impact</th><th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {visible.map(tx => {
+                  const isDed = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
+                  return (
+                    <tr key={tx.id} className={deleting === tx.id ? 'opacity-40' : ''}>
+                      <td className="text-navy/40 text-xs whitespace-nowrap">{tx.date || '—'}</td>
+                      <td className="font-medium">{tx.description}</td>
+                      <td className="text-navy/50 text-xs">{tx.category}</td>
+                      <td><span className={`badge badge-${tx.type === 'income' ? 'emerald' : 'faint'}`}>{tx.type === 'income' ? 'Income' : 'Expense'}</span></td>
+                      <td className={`text-right font-serif font-medium ${tx.type === 'income' ? 'text-emerald' : 'text-ruby'}`}>
+                        {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
+                      </td>
+                      <td>
+                        {isDed
+                          ? <span className="badge badge-emerald text-[10px]">Saves {fmt(tx.amount * (s.marginalRate / 100))}</span>
+                          : <span className="text-xs text-navy/25">—</span>}
+                      </td>
+                      <td>
+                        <button className="btn btn-danger" onClick={() => deleteTransaction(tx.id)} disabled={deleting === tx.id}>×</button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
