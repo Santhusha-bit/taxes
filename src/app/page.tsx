@@ -51,7 +51,7 @@ export default async function HomePage() {
 
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-navy/10">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-navy rounded-lg flex items-center justify-center">
               <span className="font-serif italic text-cream text-base leading-none">T</span>
@@ -66,7 +66,7 @@ export default async function HomePage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="max-w-5xl mx-auto px-6 pt-20 pb-16 relative">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-20 pb-16 relative">
         <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none" />
         <div className="relative max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-gold-bg border border-gold/30 rounded-full px-4 py-1.5 mb-8">
@@ -106,7 +106,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Features ── */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-12">
           <h2 className="font-serif text-4xl font-normal text-navy tracking-tight mb-3">
             Everything you need to pay less tax
@@ -125,7 +125,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── How it works ── */}
-      <section className="bg-navy py-20 px-6">
+      <section className="bg-navy py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-serif text-4xl font-normal italic text-cream tracking-tight">How it works</h2>
@@ -143,7 +143,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
         <h2 className="font-serif text-3xl font-normal text-navy text-center mb-10">Real people, real savings</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map(t => (
@@ -158,7 +158,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-cream-2 border-y border-navy/10 py-20 px-6 text-center">
+      <section className="bg-cream-2 border-y border-navy/10 py-20 px-4 sm:px-6 text-center">
         <div className="max-w-lg mx-auto">
           <h2 className="font-serif text-4xl font-normal text-navy tracking-tight mb-4">Your tax return is waiting.</h2>
           <p className="text-navy/50 text-base mb-8 leading-relaxed">Free to use. No credit card. Your data is encrypted and secure.</p>
@@ -168,7 +168,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-navy/10 py-8 px-6 text-center">
+      <footer className="border-t border-navy/10 py-8 px-4 sm:px-6 text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
           <div className="w-6 h-6 bg-navy rounded-md flex items-center justify-center">
             <span className="font-serif italic text-cream text-xs">T</span>

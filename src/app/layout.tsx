@@ -26,6 +26,12 @@ export const metadata: Metadata = {
   },
 }
 
+// Use `export const viewport` (not `metadata.viewport`) to keep Next's viewport handling supported.
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
