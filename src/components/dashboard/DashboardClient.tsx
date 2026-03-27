@@ -2,6 +2,18 @@
 import { useMemo } from 'react'
 import Link from 'next/link'
 import { calcTaxSummary, getIRARec, formatCurrency as fmt, formatPct as pct, DEDUCTIBLE_CATEGORIES, type Profile, type Transaction } from '@/lib/tax'
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip as RechartsTooltip,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts'
 
 interface Props {
   profile: Profile | null
@@ -22,6 +34,50 @@ export default function DashboardClient({ profile, transactions }: Props) {
   const p = profile ?? {} as Profile
   const s   = useMemo(() => calcTaxSummary(p, transactions), [p, transactions])
   const ira = useMemo(() => getIRARec(p), [p])
+
+  const incomeByCategory = useMemo(() => {
+    const totals = new Map<string, number>()
+    for (const t of transactions) {
+      if (t.type !== 'income') continue
+      totals.set(t.category, (totals.get(t.category) ?? 0) + t.amount)
+    }
+
+    const entries = Array.from(totals.entries()).sort((a, b) => b[1] - a[1])
+    const total = entries.reduce((sum, [, v]) => sum + v, 0)
+    if (total <= 0) return { data: [] as { name: string; value: number }[], total: 0 }
+
+    const top = entries.slice(0, 5)
+    const topTotal = top.reduce((sum, [, v]) => sum + v, 0)
+    const other = total - topTotal
+
+    const data = top.map(([name, value]) => ({ name, value }))
+    if (other > 0.01) data.push({ name: 'Other', value: other })
+
+    return { data, total }
+  }, [transactions])
+
+  const taxVsIncomeSeries = useMemo(() => {
+    // Group by YYYY-MM from transaction dates, and compute summary per month.
+    const byMonth = new Map<string, Transaction[]>()
+    for (const t of transactions) {
+      const d = (t.date || '').trim()
+      // expected: YYYY-MM-DD
+      if (d.length < 7) continue
+      const ym = d.slice(0, 7)
+      if (!/^\d{4}-\d{2}$/.test(ym)) continue
+      const list = byMonth.get(ym) ?? []
+      list.push(t)
+      byMonth.set(ym, list)
+    }
+
+    const months = Array.from(byMonth.keys()).sort()
+    const last = months.slice(-12)
+    const data = last.map((ym) => {
+      const summary = calcTaxSummary(p, byMonth.get(ym) ?? [])
+      return { month: ym, income: summary.gross, tax: summary.federalTax }
+    })
+    return data
+  }, [transactions, p])
 
   const recent     = [...transactions].slice(0, 6)
   const deductible = transactions.filter(t => t.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(t.category))
@@ -51,6 +107,82 @@ export default function DashboardClient({ profile, transactions }: Props) {
         <StatCard label="Adjusted gross"    value={fmt(s.agi)}        sub={`${fmt(s.aboveLine)} in above-line deductions`}                     accent="gold" />
         <StatCard label="Est. federal tax"  value={fmt(s.federalTax)} sub={`${pct(s.effectiveRate)} effective · ${pct(s.marginalRate)} marginal`} accent="ruby" />
         <StatCard label="Tax from deducts." value={fmt(deductible * s.marginalRate / 100)} sub="estimated savings from logged deductions" accent="sky" />
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="card p-5">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <div className="font-serif text-base font-medium text-navy">Income by category</div>
+              <div className="text-xs text-navy/40 mt-1">Based on your logged income transactions</div>
+            </div>
+            <div className="text-right">
+              <div className="text-xs text-navy/40">Total</div>
+              <div className="font-serif text-base font-medium text-navy">{fmt(incomeByCategory.total)}</div>
+            </div>
+          </div>
+
+          {incomeByCategory.data.length === 0 ? (
+            <div className="py-10 text-center text-sm text-navy/40">
+              No income yet. Log income in <Link href="/tracker" className="underline underline-offset-2">Transactions</Link> to see a breakdown.
+            </div>
+          ) : (
+            <div className="h-72 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <RechartsTooltip
+                    formatter={(value: unknown) => fmt(Number(value))}
+                    labelFormatter={(label: string) => label}
+                  />
+                  <Pie
+                    data={incomeByCategory.data}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={85}
+                    paddingAngle={2}
+                  >
+                    {incomeByCategory.data.map((entry, i) => {
+                      const colors = ['#1d5a8e', '#1a6b4a', '#c9943a', '#9b2335', '#253d54', '#e8b86d']
+                      return <Cell key={`cell-${entry.name}`} fill={colors[i % colors.length]} />
+                    })}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <div className="card p-5">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <div className="font-serif text-base font-medium text-navy">Tax vs income</div>
+              <div className="text-xs text-navy/40 mt-1">Monthly view of income and estimated federal tax</div>
+            </div>
+          </div>
+
+          {taxVsIncomeSeries.length === 0 ? (
+            <div className="py-10 text-center text-sm text-navy/40">
+              Add dated transactions to see a monthly tax vs income trend.
+            </div>
+          ) : (
+            <div className="h-72 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={taxVsIncomeSeries} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <CartesianGrid stroke="rgba(13,27,42,0.08)" strokeDasharray="3 3" />
+                  <XAxis dataKey="month" tick={{ fill: '#0d1b2a', fontSize: 11 }} />
+                  <YAxis tick={{ fill: '#0d1b2a', fontSize: 11 }} tickFormatter={(v) => `$${Math.round(Number(v)).toLocaleString()}`} />
+                  <RechartsTooltip formatter={(value: unknown) => fmt(Number(value))} />
+                  <Line type="monotone" dataKey="income" name="Income" stroke="#1d5a8e" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="tax" name="Federal tax" stroke="#9b2335" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Deduction + IRA row */}

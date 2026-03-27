@@ -13,4 +13,4 @@ export default async function IRAPage() {
   return <IRAClient profile={profile} />
 }
 
-export const metadata = { title: 'IRA Analysis - TaxWise' }
+export const metadata = { title: 'IRA Analysis' }

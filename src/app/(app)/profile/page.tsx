@@ -13,4 +13,4 @@ export default async function ProfilePage() {
   return <ProfileClient profile={profile} userEmail={user.email ?? ''} />
 }
 
-export const metadata = { title: 'Profile - TaxWise' }
+export const metadata = { title: 'Profile' }

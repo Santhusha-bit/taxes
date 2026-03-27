@@ -15,4 +15,4 @@ export default async function TrackerPage() {
   return <TrackerClient profile={profile} transactions={transactions ?? []} />
 }
 
-export const metadata = { title: 'Transactions - TaxWise' }
+export const metadata = { title: 'Transactions' }

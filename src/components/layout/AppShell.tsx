@@ -51,7 +51,7 @@ export default function AppShell({ user, initialProfile, children }: Props) {
       </div>
 
       {/* Nav links */}
-      <nav className="flex flex-col gap-0.5 flex-1">
+      <nav className="flex flex-col gap-0.5">
         {NAV.map(n => (
           <Link
             key={n.href}
@@ -65,8 +65,10 @@ export default function AppShell({ user, initialProfile, children }: Props) {
         ))}
       </nav>
 
+      <div className="flex-1" />
+
       {/* User + signout */}
-      <div className="border-t border-navy/10 pt-3 mt-2">
+      <div className="border-t border-navy/10 pt-3 mt-auto">
         <div className="flex items-center gap-2.5 px-2 mb-2">
           <div className="w-7 h-7 rounded-full bg-navy/10 flex items-center justify-center flex-shrink-0">
             <span className="text-[10px] font-medium text-navy">{initials}</span>
@@ -88,9 +90,9 @@ export default function AppShell({ user, initialProfile, children }: Props) {
   )
 
   return (
-    <div className="flex min-h-dvh overflow-hidden bg-cream">
+    <div className="flex h-dvh overflow-hidden bg-cream">
       {/* ── Sidebar ── */}
-      <aside className="hidden md:flex w-60 min-w-60 bg-white border-r border-navy/10 flex-col py-4 px-3">
+      <aside className="hidden md:flex sticky top-0 w-60 min-w-60 bg-white border-r border-navy/10 flex-col py-4 px-3 h-dvh overflow-hidden">
         {SidebarContent}
       </aside>
 
@@ -123,7 +125,7 @@ export default function AppShell({ user, initialProfile, children }: Props) {
             </div>
             {/* Nav + user area */}
             <div className="flex flex-col flex-1">
-              <nav className="flex flex-col gap-0.5 flex-1">
+              <nav className="flex flex-col gap-0.5">
                 {NAV.map(n => (
                   <Link
                     key={n.href}
@@ -136,7 +138,8 @@ export default function AppShell({ user, initialProfile, children }: Props) {
                   </Link>
                 ))}
               </nav>
-              <div className="border-t border-navy/10 pt-3 mt-2">
+              <div className="flex-1" />
+              <div className="border-t border-navy/10 pt-3 mt-auto">
                 <div className="flex items-center gap-2.5 px-2 mb-2">
                   <div className="w-7 h-7 rounded-full bg-navy/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-[10px] font-medium text-navy">{initials}</span>
