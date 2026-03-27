@@ -22,4 +22,4 @@ export default async function AdvisorPage() {
   )
 }
 
-export const metadata = { title: 'Tax Advisor — TaxWise' }
+export const metadata = { title: 'Tax Advisor - TaxWise' }

@@ -34,7 +34,7 @@ export default function ProfileClient({ profile: initial, userEmail }: Props) {
       })
       if (!res.ok) { const d = await res.json(); setErr(d.error || 'Save failed'); return }
       setSaved(true); setTimeout(() => setSaved(false), 2500)
-    } catch { setErr('Network error — please try again') }
+    } catch { setErr('Network error - please try again') }
     finally { setSaving(false) }
   }
 
@@ -50,11 +50,11 @@ export default function ProfileClient({ profile: initial, userEmail }: Props) {
     <div className="flex flex-col gap-6 animate-fade-up">
       <div>
         <h1 className="font-serif text-2xl font-medium text-navy">My Tax Profile</h1>
-        <p className="text-sm text-navy/50 mt-0.5">All estimates update live as you edit — save when ready</p>
+        <p className="text-sm text-navy/50 mt-0.5">All estimates update live as you edit; save when ready</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-        {/* Left — form */}
+        {/* Left - form */}
         <div className="flex flex-col gap-4">
           {/* Personal */}
           <div className="card p-5">
@@ -124,7 +124,7 @@ export default function ProfileClient({ profile: initial, userEmail }: Props) {
           </button>
         </div>
 
-        {/* Right — live snapshot (sticky) */}
+        {/* Right - live snapshot (sticky) */}
         <div className="flex flex-col gap-4 lg:sticky lg:top-6">
           {/* Tax snapshot */}
           <div className="card-navy p-5">
@@ -170,7 +170,7 @@ export default function ProfileClient({ profile: initial, userEmail }: Props) {
 
           <p className="text-[11px] text-navy/25 leading-relaxed">
             Estimates use 2025 federal brackets and rules (One Big Beautiful Bill Act). State taxes not included.
-            Not a substitute for professional tax advice — consult a licensed CPA.
+            Not a substitute for professional tax advice; consult a licensed CPA.
           </p>
         </div>
       </div>

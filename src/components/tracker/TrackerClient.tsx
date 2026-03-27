@@ -72,7 +72,7 @@ export default function TrackerClient({ profile, transactions: initial }: Props)
       setTransactions(prev => [tx, ...prev])
       setForm(f => ({ ...BLANK, type: f.type }))
       setShowForm(false)
-    } catch { setFormErr('Network error — please try again') }
+    } catch { setFormErr('Network error - please try again') }
     finally { setAdding(false) }
   }
 
@@ -232,7 +232,7 @@ export default function TrackerClient({ profile, transactions: initial }: Props)
         {visible.length === 0 ? (
           <div className="py-12 text-center">
             <div className="text-3xl mb-3">🔍</div>
-            <div className="text-sm text-navy/40">{transactions.length === 0 ? 'No transactions yet — add one above' : 'No transactions match your filter'}</div>
+            <div className="text-sm text-navy/40">{transactions.length === 0 ? 'No transactions yet; add one above' : 'No transactions match your filter'}</div>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -248,7 +248,7 @@ export default function TrackerClient({ profile, transactions: initial }: Props)
                   const isDed = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
                   return (
                     <tr key={tx.id} className={deleting === tx.id ? 'opacity-40' : ''}>
-                      <td className="text-navy/40 text-xs whitespace-nowrap">{tx.date || '—'}</td>
+                      <td className="text-navy/40 text-xs whitespace-nowrap">{tx.date || '-'}</td>
                       <td className="font-medium">{tx.description}</td>
                       <td className="text-navy/50 text-xs">{tx.category}</td>
                       <td><span className={`badge badge-${tx.type === 'income' ? 'emerald' : 'faint'}`}>{tx.type === 'income' ? 'Income' : 'Expense'}</span></td>
@@ -258,7 +258,7 @@ export default function TrackerClient({ profile, transactions: initial }: Props)
                       <td>
                         {isDed
                           ? <span className="badge badge-emerald text-[10px]">Saves {fmt(tx.amount * (s.marginalRate / 100))}</span>
-                          : <span className="text-xs text-navy/25">—</span>}
+                          : <span className="text-xs text-navy/25">-</span>}
                       </td>
                       <td>
                         <button className="btn btn-danger" onClick={() => deleteTransaction(tx.id)} disabled={deleting === tx.id}>×</button>

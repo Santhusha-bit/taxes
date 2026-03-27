@@ -48,7 +48,7 @@ export default function RegisterPage() {
             Start keeping more<br />of what you earn.
           </h2>
           <div className="flex flex-col gap-4">
-            {['Free forever — no credit card','Your data is encrypted & secure','2025 tax rules built in','AI advisor powered by Claude'].map(f => (
+            {['Free forever - no credit card','Your data is encrypted & secure','2025 tax rules built in','AI advisor powered by Claude'].map(f => (
               <div key={f} className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center flex-shrink-0">
                   <span className="text-gold text-[10px]">✓</span>

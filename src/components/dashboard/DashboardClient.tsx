@@ -36,7 +36,7 @@ export default function DashboardClient({ profile, transactions }: Props) {
             {p.name ? `Hello, ${p.name.split(' ')[0]}.` : 'Your tax overview'}
           </h1>
           <p className="text-sm text-navy/50 mt-0.5">
-            {(p.filing_status || 'single').replace('_', ' ')} filer · {p.state || '—'} · Tax Year 2025
+            {(p.filing_status || 'single').replace('_', ' ')} filer · {p.state || '-'} · Tax Year 2025
           </p>
         </div>
         <div className="flex gap-2">
@@ -171,8 +171,8 @@ export default function DashboardClient({ profile, transactions }: Props) {
                 {recent.map(tx => {
                   const isDeductible = tx.type === 'expense' && DEDUCTIBLE_CATEGORIES.has(tx.category)
                   return (
-                    <tr key={tx.id}>
-                      <td className="text-navy/40 whitespace-nowrap text-xs">{tx.date || '—'}</td>
+                  <tr key={tx.id}>
+                    <td className="text-navy/40 whitespace-nowrap text-xs">{tx.date || '-'}</td>
                       <td className="font-medium">{tx.description}</td>
                       <td className="text-navy/50 text-xs">{tx.category}</td>
                       <td className={`text-right font-serif font-medium ${tx.type==='income'?'text-emerald':'text-ruby'}`}>

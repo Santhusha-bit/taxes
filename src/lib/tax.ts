@@ -145,7 +145,7 @@ export function getIRARec(profile: Profile): IRARec {
   if (income >= hi) {
     type = 'Traditional'
     reasons.push('Your income exceeds the Roth IRA direct contribution limit')
-    warnings.push('Consider the Backdoor Roth IRA strategy — consult a CPA')
+    warnings.push('Consider the Backdoor Roth IRA strategy; consult a CPA')
   } else if (income >= lo) {
     type = 'Traditional'
     reasons.push('Your income is in the Roth phase-out range ($' + lo.toLocaleString() + '–$' + hi.toLocaleString() + ')')
@@ -160,15 +160,15 @@ export function getIRARec(profile: Profile): IRARec {
     reasons.push("You're likely in a lower bracket now than at retirement")
   } else if (age >= 55 && income > 120000) {
     type = 'Traditional'
-    reasons.push('Peak earning years — deduction provides maximum immediate value')
+    reasons.push('Peak earning years; deduction provides maximum immediate value')
     reasons.push('Expected lower tax rate in retirement makes deferral efficient')
   } else if (income < 50000) {
     type = 'Roth'
-    reasons.push('Low bracket now — locking in today\'s rate is advantageous')
+    reasons.push('Low bracket now; locking in today\'s rate is advantageous')
     reasons.push('Tax-free income in retirement adds flexibility')
   } else {
     type = 'Split'
-    reasons.push('Middle-income range — diversifying hedges future tax rate uncertainty')
+    reasons.push('Middle-income range; diversifying hedges future tax rate uncertainty')
     reasons.push('Maintains flexibility regardless of future tax law changes')
   }
 

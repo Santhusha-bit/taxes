@@ -15,4 +15,4 @@ export default async function DashboardPage() {
   return <DashboardClient profile={profile} transactions={transactions ?? []} />
 }
 
-export const metadata = { title: 'Dashboard — TaxWise' }
+export const metadata = { title: 'Dashboard - TaxWise' }

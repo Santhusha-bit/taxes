@@ -3,8 +3,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'TaxWise — Keep more of what you earn',
-    template: '%s — TaxWise',
+    default: 'TaxWise - Keep more of what you earn',
+    template: '%s - TaxWise',
   },
   description:
     'AI-powered tax optimization. Track income & expenses, get personalized IRA recommendations, and ask how any financial decision impacts your tax bill.',
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   ],
   icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
   openGraph: {
-    title: 'TaxWise — Keep more of what you earn',
+    title: 'TaxWise - Keep more of what you earn',
     description: 'AI-powered tax optimization for 2025',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TaxWise — Keep more of what you earn',
+    title: 'TaxWise - Keep more of what you earn',
     description: 'AI-powered tax optimization for 2025',
   },
 }

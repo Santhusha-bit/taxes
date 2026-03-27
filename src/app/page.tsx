@@ -13,7 +13,7 @@ const features = [
     icon: '🏦',
     color: 'bg-emerald-bg',
     title: 'IRA recommendation engine',
-    desc: 'Roth vs. Traditional analysis based on your exact income, age, filing status, and employer plan — with projected retirement values and an income sensitivity slider.',
+    desc: 'Roth vs. Traditional analysis based on your exact income, age, filing status, and employer plan, with projected retirement values and an income sensitivity slider.',
   },
   {
     icon: '🧮',
@@ -25,7 +25,7 @@ const features = [
     icon: '✦',
     color: 'bg-ruby-bg',
     title: 'AI tax impact advisor',
-    desc: 'Ask "What if I donate $5,000?" and get a before/after calculation using your actual numbers — not generic advice. Powered by Claude AI.',
+    desc: 'Ask "What if I donate $5,000?" and get a before/after calculation using your actual numbers, not generic advice. Powered by Claude AI.',
   },
 ]
 
@@ -81,7 +81,7 @@ export default async function HomePage() {
 
           <p className="text-lg text-navy/55 leading-relaxed max-w-xl mb-10 font-light">
             TaxWise tracks your income, surfaces every deduction, and lets you ask an AI advisor
-            exactly how any financial decision impacts your tax bill — using your actual numbers.
+            exactly how any financial decision impacts your tax bill using your actual numbers.
           </p>
 
           <div className="flex flex-wrap gap-3 mb-16">

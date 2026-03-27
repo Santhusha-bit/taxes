@@ -14,7 +14,7 @@ export async function GET() {
   return NextResponse.json(data)
 }
 
-// PATCH /api/profile — update profile fields
+// PATCH /api/profile - update profile fields
 export async function PATCH(req: NextRequest) {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
